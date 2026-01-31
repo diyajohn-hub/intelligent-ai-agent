@@ -1,0 +1,5 @@
+[
+  {"timestamp": "11:00:01", "cpu_usage": 20, "memory_usage": 30, "disk_usage": 40, "error_rate": 0.0},
+  {"timestamp": "11:00:02", "cpu_usage": 99, "memory_usage": 31, "disk_usage": 40, "error_rate": 0.0},
+  {"timestamp": "11:00:03", "cpu_usage": 22, "memory_usage": 30, "disk_usage": 40, "error_rate": 0.0}
+]
