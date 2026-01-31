@@ -1,41 +1,65 @@
 from detector.incident_detector import IncidentDetector
 from agent import IncidentResponseAgent
 import os
+import json
+
+from llm.root_cause_agent import explain_root_cause
+from decision.decision_engine import make_decision
+from utils.metrics import calculate_mttd, is_false_alert, estimate_resolution_time
+from actions.remediation import apply_fix
+from agent import IncidentResponseAgent
+import os
+import json
+import sys
+
+# Ensure UTF-8 output for emojis on Windows
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding='utf-8')
+
+def load_telemetry(filepath):
+    if not os.path.exists(filepath):
+        print(f"Error: {filepath} not found.")
+        return None
+    with open(filepath, 'r') as file:
+        return json.load(file)
+
+def print_report(report):
+    if isinstance(report, str):
+        print(report)
+        return
+
+    print("=" * 70)
+    print("INCIDENT RESPONSE REPORT")
+    print("=" * 70)
+    print(f"INCIDENT TYPE: {report['incident_type']}\nSEVERITY: {report['decision']['severity']}\n")
+    print("-" * 70 + "\nANALYSIS\n" + "-" * 70)
+    print(f"Confidence Score: {report['confidence']:.2f}\nRoot Cause: {report['explanation']}\n")
+    print("-" * 70 + "\nDECISION\n" + "-" * 70)
+    print(f"Action: {report['decision']['action']}\nReason: {report['decision']['reason']}\n")
+    print("-" * 70 + "\nMETRICS\n" + "-" * 70)
+    print(f"MTTD: {report['metrics']['mttd']}\nResolution Time: {report['metrics']['resolution_time']}\nFalse Alert: {'Yes' if report['metrics']['false_alert'] else 'No'}\n")
+    print("-" * 70 + "\nEXECUTION\n" + "-" * 70)
+    print(report['action_result'])
+    print("=" * 70)
 
 def main():
-    # Initialize your parts
-    detector = IncidentDetector()
+    # Initialize Agent
     agent = IncidentResponseAgent()
+    
+    # Path configuration
+    telemetry_file = "telemetry/memory_leak.json" 
+    
+    print(f"--- STARTING ANALYSIS FOR: {telemetry_file} ---")
 
-    # List of telemetry files to check [cite: 5, 9]
-    telemetry_files = [
-        'telemetry/memory_leak.json',
-        'telemetry/api_timeout.json',
-        'telemetry/false_alert.json'
-    ]
+    # Step 1: Load
+    telemetry_data = load_telemetry(telemetry_file)
+    if not telemetry_data: return
 
-    print("--- STARTING INTELLIGENT INCIDENT AGENT ---")
+    # Step 2: Agent Execution
+    report = agent.run_cycle(telemetry_data)
 
-    for file_path in telemetry_files:
-        print(f"\n[STEP 1] Ingesting: {file_path}") [cite: 5]
-        
-        # 1. Run your detector logic (Decision Tree) 
-        data = detector.load_telemetry(file_path)
-        if not data:
-            continue
-            
-        detection_result = detector.analyze(data)
-        
-        # 2. Print the reasoning for the action 
-        print(f"[STEP 2] Detection Result: {detection_result['incident']}")
-        print(f"[STEP 3] Action Taken: {detection_result['action']}") [cite: 7]
-        
-        # 3. Pass to Agent for LLM Root Cause Analysis 
-        if detection_result['incident'] != "None" and detection_result['incident'] != "False Positive":
-            ai_explanation = agent.analyze_with_llm(detection_result)
-            print(f"[STEP 4] {ai_explanation}") [cite: 12]
-        else:
-            print("[STEP 4] System stable. No AI analysis needed.")
+    # Step 3: Print Report
+    print_report(report)
 
 if __name__ == "__main__":
     main()

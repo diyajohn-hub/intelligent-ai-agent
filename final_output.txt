@@ -1,0 +1,36 @@
+--- STARTING ANALYSIS FOR: telemetry/memory_leak.json ---
+======================================================================
+INCIDENT RESPONSE REPORT
+======================================================================
+INCIDENT TYPE: MEMORY_LEAK
+SEVERITY: HIGH
+
+----------------------------------------------------------------------
+ANALYSIS
+----------------------------------------------------------------------
+Confidence Score: 0.95
+Root Cause: Analysis of heap dumps indicates a steady accumulation of unreferenced objects in the user session cache. Suspected cause: Circular reference in the SessionManager class.
+
+----------------------------------------------------------------------
+DECISION
+----------------------------------------------------------------------
+Action: AUTO_FIX
+Reason: Memory leak detected with critical confidence (0.95). Initiating automated service restart to restore health.
+
+----------------------------------------------------------------------
+METRICS
+----------------------------------------------------------------------
+MTTD: ~3 minutes (estimated)
+Resolution Time: ~2 minutes (automated)
+False Alert: No
+
+----------------------------------------------------------------------
+EXECUTION
+----------------------------------------------------------------------
+✓ AUTO-FIX EXECUTED
+  - Cleared temporary files and logs
+  - Freed disk space: ~2.3 GB
+  - Cache invalidated and rebuilt
+  - System resources optimized
+  Status: Remediation complete
+======================================================================

@@ -76,5 +76,32 @@ if __name__ == "__main__":
     
     # You can test by pointing to your JSON files
     print("Testing Detection System...")
-    # Example: test_data = detector.load_telemetry('telemetry/memory_leak.json')
-    # print(detector.analyze(test_data))
+
+# Functional Wrapper for easier integration
+# Functional Wrapper for easier integration
+def detect_incident(telemetry_data):
+    """
+    Wrapper around IncidentDetector to return normalized incident labels
+    for the decision engine.
+    """
+
+    # ✅ Import here to avoid circular / load-time issues
+    from detector.incident_detector import IncidentDetector
+
+    detector = IncidentDetector()
+    result = detector.analyze(telemetry_data)
+
+    if not result:
+        return "NO_INCIDENT"
+
+    incident_raw = result.get("incident", "None")
+
+    mapping = {
+        "Disk Full": "DISK_FULL",
+        "Memory Leak": "MEMORY_LEAK",
+        "API Timeout": "API_TIMEOUT",
+        "False Positive": "NO_INCIDENT",
+        "None": "NO_INCIDENT"
+    }
+
+    return mapping.get(incident_raw, "NO_INCIDENT")

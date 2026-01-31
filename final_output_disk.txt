@@ -1,0 +1,36 @@
+--- STARTING ANALYSIS FOR: telemetry/disk_full.json ---
+======================================================================
+INCIDENT RESPONSE REPORT
+======================================================================
+INCIDENT TYPE: DISK_FULL
+SEVERITY: MEDIUM
+
+----------------------------------------------------------------------
+ANALYSIS
+----------------------------------------------------------------------
+Confidence Score: 0.98
+Root Cause: Log rotation failure detected in /var/log/application. Debug logs are consuming 45GB of space. The cleanup cron job failed to execute.
+
+----------------------------------------------------------------------
+DECISION
+----------------------------------------------------------------------
+Action: AUTO_FIX
+Reason: Critical storage alert verified. Automated cleanup routine (safe mode) engaged to recover disk space.
+
+----------------------------------------------------------------------
+METRICS
+----------------------------------------------------------------------
+MTTD: ~3 minutes (estimated)
+Resolution Time: ~2 minutes (automated)
+False Alert: No
+
+----------------------------------------------------------------------
+EXECUTION
+----------------------------------------------------------------------
+✓ AUTO-FIX EXECUTED
+  - Cleared temporary files and logs
+  - Freed disk space: ~2.3 GB
+  - Cache invalidated and rebuilt
+  - System resources optimized
+  Status: Remediation complete
+======================================================================
