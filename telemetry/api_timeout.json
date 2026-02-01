@@ -1,4 +1,0 @@
-[
-  {"timestamp": "12:00:01", "cpu_usage": 30, "memory_usage": 40, "disk_usage": 20, "latency": 100, "error_rate": 0.02},
-  {"timestamp": "12:00:02", "cpu_usage": 32, "memory_usage": 41, "disk_usage": 20, "latency": 650, "error_rate": 0.25}
-]

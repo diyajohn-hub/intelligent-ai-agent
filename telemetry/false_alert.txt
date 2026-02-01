@@ -1,0 +1,77 @@
+[2026-02-01 05:28:25.613] [INFO] Monitoring agent initialized
+[2026-02-01 05:28:25.613] [INFO] Baseline metrics established
+[2026-02-01 05:28:25.613] [INFO] Alert rules loaded: 47 active rules
+[2026-02-01 05:28:26.614] [ERROR] Burst traffic detected: 215 req/sec (normal: 100 req/sec)
+[2026-02-01 05:28:27.373] [OK] All health checks passing
+[2026-02-01 05:28:28.758] [WARNING] Latency: 1001ms (SLA: 1000ms)
+[2026-02-01 05:28:29.526] [OK] GC completed - application resumed
+[2026-02-01 05:28:30.921] [ERROR] Disk I/O wait at 80% (threshold: 70%)
+[2026-02-01 05:28:32.225] [OK] Downstream service responding normally
+[2026-02-01 05:28:33.480] [ERROR] Connection timeout to api.service.com (timeout after 100ms)
+[2026-02-01 05:28:34.297] [OK] Disk I/O wait normalized to 40%
+[2026-02-01 05:28:35.044] [OK] Service status: HEALTHY - all systems operational
+[2026-02-01 05:28:36.521] [WARNING] Transient slowdown in request processing
+[2026-02-01 05:28:36.901] [INFO] Metrics stabilized - within normal parameters
+[2026-02-01 05:28:37.653] [ERROR] ECONNREFUSED: Connection refused to 10.0.1.45:8080
+[2026-02-01 05:28:39.070] [OK] Cache performance within normal range
+[2026-02-01 05:28:39.070] [WARNING] Multiple alerts triggered simultaneously:
+[2026-02-01 05:28:39.172] [WARNING]   - Semaphore wait timeout in module sync_handler
+[2026-02-01 05:28:39.272] [WARNING]   - Error rate: 5.1% (threshold: 5.0%)
+[2026-02-01 05:28:39.773] [OK] All alerts cleared - no correlation found
+[2026-02-01 05:28:40.296] [ERROR] Semaphore wait timeout in module sync_handler
+[2026-02-01 05:28:41.060] [OK] Response times returned to normal: 220ms average
+[2026-02-01 05:28:41.883] [WARNING] Load balancer marked instance unhealthy
+[2026-02-01 05:28:43.338] [WARNING] Momentary disk seek delay: 194ms
+[2026-02-01 05:28:43.834] [INFO] Metrics stabilized - within normal parameters
+[2026-02-01 05:28:43.834] [WARNING] Multiple alerts triggered simultaneously:
+[2026-02-01 05:28:43.935] [WARNING]   - Response time exceeded threshold: 1577ms (limit: 500ms)
+[2026-02-01 05:28:44.036] [WARNING]   - Response time: 501ms (threshold: 500ms)
+[2026-02-01 05:28:44.537] [OK] All alerts cleared - no correlation found
+[2026-02-01 05:28:45.325] [WARNING] Metric fluctuation detected: CPU variance ±17%
+[2026-02-01 05:28:45.859] [INFO] Metrics stabilized - within normal parameters
+[2026-02-01 05:28:47.061] [ERROR] Response time exceeded threshold: 1909ms (limit: 500ms)
+[2026-02-01 05:28:48.318] [OK] GC completed - application resumed
+[2026-02-01 05:28:49.051] [ERROR] Disk I/O wait at 80% (threshold: 70%)
+[2026-02-01 05:28:50.232] [OK] All health checks passing
+[2026-02-01 05:28:51.249] [ERROR] Semaphore wait timeout in module sync_handler
+[2026-02-01 05:28:51.841] [OK] Traffic levels returned to baseline
+[2026-02-01 05:28:52.856] [ERROR] Network packet loss: 88% packets dropped
+[2026-02-01 05:28:54.107] [OK] Service health check passed: HTTP 200 OK
+[2026-02-01 05:28:55.096] [ERROR] Response time exceeded threshold: 1106ms (limit: 500ms)
+[2026-02-01 05:28:56.581] [OK] Traffic levels returned to baseline
+[2026-02-01 05:28:57.677] [INFO] System performance optimal
+[2026-02-01 05:28:57.778] [ERROR] ECONNREFUSED: Connection refused to 10.0.1.45:8080
+[2026-02-01 05:28:57.879] [INFO] Alert recovered - duplicate notification suppressed
+[2026-02-01 05:28:58.515] [OK] Service instance registered with cluster
+[2026-02-01 05:28:59.106] [WARNING] Transient slowdown in request processing
+[2026-02-01 05:28:59.695] [INFO] Metrics stabilized - within normal parameters
+[2026-02-01 05:29:00.522] [WARNING] Brief cache invalidation storm
+[2026-02-01 05:29:00.925] [INFO] Metrics stabilized - within normal parameters
+[2026-02-01 05:29:01.864] [ERROR] Database query timeout: exceeded 5000ms
+[2026-02-01 05:29:02.412] [OK] All health checks passing
+[2026-02-01 05:29:02.512] [ERROR] Semaphore wait timeout in module sync_handler
+[2026-02-01 05:29:02.613] [INFO] Alert recovered - duplicate notification suppressed
+[2026-02-01 05:29:03.250] [WARNING] Brief cache invalidation storm
+[2026-02-01 05:29:03.824] [INFO] Metrics stabilized - within normal parameters
+[2026-02-01 05:29:05.082] [ERROR] Socket hang up on connection attempt
+[2026-02-01 05:29:05.981] [OK] Traffic levels returned to baseline
+[2026-02-01 05:29:07.187] [WARNING] Momentary disk seek delay: 86ms
+[2026-02-01 05:29:07.608] [INFO] Metrics stabilized - within normal parameters
+[2026-02-01 05:29:08.695] [ERROR] Database query timeout: exceeded 5000ms
+[2026-02-01 05:29:09.406] [OK] Lock acquired successfully
+[2026-02-01 05:29:10.762] [ERROR] Semaphore wait timeout in module sync_handler
+[2026-02-01 05:29:11.832] [OK] Connection restored to api.service.com
+[2026-02-01 05:29:11.933] [ERROR] Burst traffic detected: 285 req/sec (normal: 100 req/sec)
+[2026-02-01 05:29:12.034] [INFO] Alert recovered - duplicate notification suppressed
+[2026-02-01 05:29:12.757] [WARNING] Service instance deregistered from cluster
+[2026-02-01 05:29:13.429] [ERROR] Burst traffic detected: 243 req/sec (normal: 100 req/sec)
+[2026-02-01 05:29:14.150] [OK] Response times returned to normal: 326ms average
+[2026-02-01 05:29:14.799] [INFO] System performance optimal
+[2026-02-01 05:29:15.450] [WARNING] Session count: 5001 (threshold: 5000)
+[2026-02-01 05:29:16.168] [OK] GC completed - application resumed
+[2026-02-01 05:29:16.269] [ERROR] Temporary file creation failed: too many open files
+[2026-02-01 05:29:16.369] [INFO] Alert recovered - duplicate notification suppressed
+[2026-02-01 05:29:17.747] [OK] Circuit breaker closed: failure rate normalized
+[2026-02-01 05:29:18.689] [INFO] Monitoring session complete
+[2026-02-01 05:29:18.689] [INFO] Total alerts generated: 31
+[2026-02-01 05:29:18.689] [INFO] Alert accuracy review recommended

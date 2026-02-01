@@ -39,7 +39,10 @@ class IncidentResponseAgent:
 
         # Step 4: Metrics
         # Assuming telemetry_data is a list of dicts with 'timestamp'
-        timestamps = [entry.get("timestamp") for entry in telemetry_data if "timestamp" in entry]
+        timestamps = []
+        if isinstance(telemetry_data, list):
+            timestamps = [entry.get("timestamp") for entry in telemetry_data if "timestamp" in entry]
+            
         mttd = calculate_mttd(timestamps)
         false_alert = is_false_alert(incident_type)
         resolution_time = estimate_resolution_time(decision['action'])
@@ -53,6 +56,7 @@ class IncidentResponseAgent:
             "decision": decision,
             "explanation": explanation,
             "confidence": confidence,
+            "evidence": detection_result.get("evidence", "N/A"),
             "metrics": {
                 "mttd": mttd,
                 "false_alert": false_alert,
@@ -60,6 +64,13 @@ class IncidentResponseAgent:
             },
             "action_result": action_result
         }
+
+        # Step 7: Persist
+        try:
+            from database.db import log_incident
+            log_incident(report)
+        except Exception as e:
+            print(f"DB Error: {e}")
 
         return report
 

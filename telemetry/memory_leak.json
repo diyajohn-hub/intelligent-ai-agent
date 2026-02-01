@@ -1,7 +1,0 @@
-[
-  {"timestamp": "10:00:01", "cpu_usage": 45, "memory_usage": 70, "disk_usage": 40, "error_rate": 0.1},
-  {"timestamp": "10:00:02", "cpu_usage": 48, "memory_usage": 75, "disk_usage": 40, "error_rate": 0.1},
-  {"timestamp": "10:00:03", "cpu_usage": 50, "memory_usage": 82, "disk_usage": 40, "error_rate": 0.1},
-  {"timestamp": "10:00:04", "cpu_usage": 52, "memory_usage": 91, "disk_usage": 40, "error_rate": 0.2},
-  {"timestamp": "10:00:05", "cpu_usage": 55, "memory_usage": 96, "disk_usage": 40, "error_rate": 0.2}
-]

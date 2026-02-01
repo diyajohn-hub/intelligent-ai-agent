@@ -20,8 +20,13 @@ def load_telemetry(filepath):
     if not os.path.exists(filepath):
         print(f"Error: {filepath} not found.")
         return None
-    with open(filepath, 'r') as file:
-        return json.load(file)
+    with open(filepath, 'r', encoding='utf-8', errors='ignore') as file:
+        content = file.read()
+        
+    try:
+        return json.loads(content)
+    except json.JSONDecodeError:
+        return content
 
 def print_report(report):
     if isinstance(report, str):
@@ -47,7 +52,7 @@ def main():
     agent = IncidentResponseAgent()
     
     # Path configuration
-    telemetry_file = "telemetry/memory_leak.json" 
+    telemetry_file = "telemetry/memory_leak.txt" 
     
     print(f"--- STARTING ANALYSIS FOR: {telemetry_file} ---")
 

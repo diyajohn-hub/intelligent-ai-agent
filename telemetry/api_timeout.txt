@@ -1,0 +1,120 @@
+[2026-02-01 05:37:35.521] [INFO] API Gateway initialized
+[2026-02-01 05:37:35.521] [INFO] Configured timeout: 5000ms
+[2026-02-01 05:37:35.521] [INFO] Monitoring 10 endpoints
+[2026-02-01 05:37:37.955] [INFO] Request completed: /api/v1/search/query - 721ms
+[2026-02-01 05:37:39.422] [WARNING] Slow API response: /api/v1/users took 4924ms (expected <500ms)
+[2026-02-01 05:37:39.422] [WARNING] Request to /api/v2/products: 1038ms (threshold: 500ms)
+[2026-02-01 05:37:40.105] [WARNING] High latency detected: /api/v2/analytics/report at 14499ms
+[2026-02-01 05:37:41.109] [WARNING] Response time degradation: 3448ms for /api/v2/analytics/report
+[2026-02-01 05:37:41.921] [WARNING] Slow API response: /api/v1/search/query took 13504ms (expected <500ms)
+[2026-02-01 05:37:43.121] [WARNING] Response time degradation: 8782ms for /api/v1/orders
+[2026-02-01 05:37:43.121] [WARNING] Request to /graphql: 1838ms (threshold: 500ms)
+[2026-02-01 05:37:43.761] [WARNING] WARNING: order-service responding slowly: 3818ms average
+[2026-02-01 05:37:43.761] [WARNING] Request to /api/v1/inventory/check: 2084ms (threshold: 500ms)
+[2026-02-01 05:37:44.611] [WARNING] Request failed after 7 retry attempts (all timed out)
+[2026-02-01 05:37:44.611] [WARNING] Request processing delayed: 2063ms wait time
+[2026-02-01 05:37:45.538] [WARNING] Max retries exceeded: 3 attempts to /api/v1/users
+[2026-02-01 05:37:45.538] [WARNING] WARNING: auth-service responding slowly: 3718ms average
+[2026-02-01 05:37:46.531] [WARNING] WARNING: order-service responding slowly: 6437ms average
+[2026-02-01 05:37:46.531] [WARNING] Request to /api/v1/notifications/send: 2966ms (threshold: 500ms)
+[2026-02-01 05:37:47.690] [WARNING] SLA violation: response time 13803ms exceeds 3000ms threshold
+[2026-02-01 05:37:47.690] [ERROR] ETIMEDOUT: connection attempt to api.backend.com timed out
+[2026-02-01 05:37:48.254] [WARNING] Request processing delayed: 9228ms wait time
+[2026-02-01 05:37:48.255] [ERROR] Connection attempt failed: handshake timeout
+[2026-02-01 05:37:48.256] [WARNING] Performance metrics: avg=3512.9256319053547ms, p95=5269ms, success_rate=30%
+[2026-02-01 05:37:49.079] [WARNING] Request failed after 6 retry attempts (all timed out)
+[2026-02-01 05:37:49.079] [WARNING] Upstream service slow: payment-service taking 6164ms
+[2026-02-01 05:37:49.079] [ERROR] Connection refused: inventory-service unreachable
+[2026-02-01 05:37:49.838] [WARNING] Performance alert: API latency at 7832ms
+[2026-02-01 05:37:49.839] [ERROR] Unable to establish connection: timeout after 10000ms
+[2026-02-01 05:37:50.548] [WARNING] Request failed after 8 retry attempts (all timed out)
+[2026-02-01 05:37:50.548] [WARNING] Request processing delayed: 4540ms wait time
+[2026-02-01 05:37:51.377] [WARNING] Exponential backoff triggered: retry in 2000ms
+[2026-02-01 05:37:51.377] [WARNING] High latency detected: /api/v2/analytics/report at 8888ms
+[2026-02-01 05:37:51.377] [WARNING] Performance metrics: avg=4493.676283686479ms, p95=6740ms, success_rate=11%
+[2026-02-01 05:37:52.312] [WARNING] Upstream service slow: analytics-service taking 3914ms
+[2026-02-01 05:37:52.854] [ERROR] Connection timeout connecting to inventory-service:3000
+[2026-02-01 05:37:52.854] [ERROR] Retry attempt 1/5 failed: timeout
+[2026-02-01 05:37:52.855] [WARNING] Cascading failure: user-service → auth-service timeout chain  
+[2026-02-01 05:37:53.607] [WARNING] Retry attempt 4/5 failed: timeout
+[2026-02-01 05:37:53.607] [ERROR] SocketTimeoutException: Read timed out after 15000ms
+[2026-02-01 05:37:53.607] [ERROR] Retry exhausted for /api/v1/search/query: consistent timeouts   
+[2026-02-01 05:37:54.321] [ERROR] Multiple concurrent timeouts detected:
+[2026-02-01 05:37:54.422] [ERROR]   [1] java.net.SocketTimeoutException: connect timed out
+[2026-02-01 05:37:54.523] [ERROR]   [2] ConnectionTimeout: API call to user-service timed out after 10000ms
+[2026-02-01 05:37:54.523] [ERROR] Connection timeout connecting to notification-service:3000
+[2026-02-01 05:37:55.308] [ERROR] axios timeout of 10000ms exceeded
+[2026-02-01 05:37:55.916] [ERROR] Multiple concurrent timeouts detected:
+[2026-02-01 05:37:56.017] [ERROR]   [1] Connection timeout connecting to inventory-service:9000
+[2026-02-01 05:37:56.117] [ERROR]   [2] Request timeout: /api/v1/users exceeded 10000ms limit
+[2026-02-01 05:37:56.218] [ERROR]   [3] SocketTimeoutException: Read timed out after 5000ms
+[2026-02-01 05:37:56.319] [ERROR]   [4] requests.exceptions.ReadTimeout: /api/v2/analytics/report (timeout=10000)
+[2026-02-01 05:37:56.319] [WARNING] Request failed after 7 retry attempts (all timed out)
+[2026-02-01 05:37:56.319] [ERROR] 504 Gateway Timeout: user-service did not respond
+[2026-02-01 05:37:57.089] [ERROR] Timeout occurred while waiting for response from /api/v1/orders
+[2026-02-01 05:37:57.089] [ERROR] Circuit breaker: retry limit reached for order-service
+[2026-02-01 05:37:57.089] [ERROR] okhttp3.internal.http.RealInterceptorChain: timeout
+[2026-02-01 05:37:57.759] [ERROR] Connection timeout connecting to order-service:9000
+[2026-02-01 05:37:57.759] [ERROR] Exponential backoff triggered: retry in 8000ms
+[2026-02-01 05:37:57.759] [ERROR] okhttp3.internal.http.RealInterceptorChain: timeout
+[2026-02-01 05:37:57.759] [WARNING] Dependent service timeout: waiting for auth-service
+[2026-02-01 05:37:58.221] [ERROR] Multiple concurrent timeouts detected:
+[2026-02-01 05:37:58.322] [ERROR]   [1] axios timeout of 10000ms exceeded
+[2026-02-01 05:37:58.423] [ERROR]   [2] java.net.SocketTimeoutException: connect timed out
+[2026-02-01 05:37:58.423] [ERROR] axios timeout of 5000ms exceeded
+[2026-02-01 05:37:58.423] [ERROR] okhttp3.internal.http.RealInterceptorChain: timeout
+[2026-02-01 05:37:59.213] [ERROR] Multiple concurrent timeouts detected:
+[2026-02-01 05:37:59.314] [ERROR]   [1] axios timeout of 30000ms exceeded
+[2026-02-01 05:37:59.416] [ERROR]   [2] Request timeout: /api/v1/inventory/check exceeded 30000ms limit
+[2026-02-01 05:37:59.416] [WARNING] Request failed after 5 retry attempts (all timed out)
+[2026-02-01 05:37:59.416] [ERROR] Connection timeout connecting to analytics-service:8443
+[2026-02-01 05:37:59.417] [WARNING] Async operation timeout: callback not received within 30ms    
+[2026-02-01 05:37:59.739] [ERROR] Connection timeout connecting to notification-service:8443
+[2026-02-01 05:37:59.739] [ERROR] Retry exhausted for /api/v1/payments/process: consistent timeouts
+[2026-02-01 05:37:59.739] [WARNING] Incomplete data: stream interrupted after 472KB
+[2026-02-01 05:38:00.467] [ERROR] requests.exceptions.ReadTimeout: /api/v1/inventory/check (timeout=30000)
+[2026-02-01 05:38:00.467] [WARNING] Cascading failure: inventory-service → order-service timeout chain
+[2026-02-01 05:38:01.265] [ERROR] Multiple concurrent timeouts detected:
+[2026-02-01 05:38:01.366] [ERROR]   [1] HTTPConnectionPool: Read timed out. (read timeout=10000s)
+[2026-02-01 05:38:01.467] [ERROR]   [2] Connection timeout connecting to notification-service:8443
+[2026-02-01 05:38:01.467] [ERROR] SocketTimeoutException: Read timed out after 30000ms
+[2026-02-01 05:38:01.467] [ERROR] Request failed after 10 retry attempts (all timed out)
+[2026-02-01 05:38:01.467] [ERROR] GRPC deadline exceeded: inventory-service
+[2026-02-01 05:38:01.787] [WARNING] Exponential backoff triggered: retry in 1000ms
+[2026-02-01 05:38:01.787] [ERROR] Timeout occurred while waiting for response from /api/v1/search/query
+[2026-02-01 05:38:01.787] [ERROR] Kong upstream timeout: 10000ms
+[2026-02-01 05:38:01.787] [WARNING] Downstream timeout: order-service dependency failed
+[2026-02-01 05:38:02.168] [ERROR] Multiple concurrent timeouts detected:
+[2026-02-01 05:38:02.269] [ERROR]   [1] TimeoutError: read timeout while calling /api/v2/analytics/report
+[2026-02-01 05:38:02.370] [ERROR]   [2] fetch() timeout: Request aborted after 15000ms
+[2026-02-01 05:38:02.471] [ERROR]   [3] ConnectionTimeout: API call to auth-service timed out after 30000ms
+[2026-02-01 05:38:02.572] [ERROR]   [4] urllib3.exceptions.ReadTimeoutError: /api/v2/products
+[2026-02-01 05:38:02.573] [WARNING] Max retries exceeded: 10 attempts to /api/v2/analytics/report
+[2026-02-01 05:38:02.573] [ERROR] 504 Gateway Timeout: notification-service did not respond       
+[2026-02-01 05:38:02.573] [ERROR] Max retries exceeded: 10 attempts to /api/v2/analytics/report   
+[2026-02-01 05:38:02.573] [WARNING] Long-running query timeout: exceeded 30s limit
+[2026-02-01 05:38:03.229] [ERROR] Multiple concurrent timeouts detected:
+[2026-02-01 05:38:03.329] [ERROR]   [1] fetch() timeout: Request aborted after 15000ms
+[2026-02-01 05:38:03.430] [ERROR]   [2] Request timeout: /graphql exceeded 30000ms limit
+[2026-02-01 05:38:03.531] [ERROR]   [3] Timeout occurred while waiting for response from /api/v2/products
+[2026-02-01 05:38:03.531] [ERROR] SocketTimeoutException: Read timed out after 5000ms
+[2026-02-01 05:38:03.531] [ERROR] Retry exhausted for /api/v1/orders: consistent timeouts
+[2026-02-01 05:38:03.531] [WARNING] Downstream timeout: user-service dependency failed
+[2026-02-01 05:38:04.264] [WARNING] Fallback triggered after 3 timeout failures
+[2026-02-01 05:38:04.264] [ERROR] urllib3.exceptions.ReadTimeoutError: /api/v1/notifications/send
+[2026-02-01 05:38:04.265] [ERROR] GRPC deadline exceeded: inventory-service
+[2026-02-01 05:38:04.663] [ERROR] Timeout occurred while waiting for response from /api/v1/search/query
+[2026-02-01 05:38:04.663] [ERROR] Request failed after 4 retry attempts (all timed out)
+[2026-02-01 05:38:04.663] [ERROR] Apache HttpClient: SocketTimeoutException on POST /api/v2/products
+[2026-02-01 05:38:04.663] [WARNING] Async operation timeout: callback not received within 120ms   
+[2026-02-01 05:38:05.445] [ERROR] SocketTimeoutException: Read timed out after 30000ms
+[2026-02-01 05:38:05.445] [ERROR] Retry exhausted for /api/v1/search/query: consistent timeouts
+[2026-02-01 05:38:05.445] [WARNING] Downstream timeout: analytics-service dependency failed       
+[2026-02-01 05:38:05.967] [ERROR] axios timeout of 15000ms exceeded
+[2026-02-01 05:38:05.967] [ERROR] Retry exhausted for /api/v2/products: consistent timeouts
+[2026-02-01 05:38:05.967] [ERROR] Retrofit call timeout: /api/v1/auth/validate
+[2026-02-01 05:38:06.430] [CRITICAL] SocketTimeoutException: Read timed out after 30000ms
+[2026-02-01 05:38:06.430] [ERROR] Nginx upstream timed out (110: Connection timed out)
+[2026-02-01 05:38:06.931] [CRITICAL] CRITICAL: Cascading timeout failures across multiple services
+[2026-02-01 05:38:06.931] [CRITICAL] Circuit breaker OPEN: order-service
+[2026-02-01 05:38:06.931] [CRITICAL] Service degradation: 5% success rate

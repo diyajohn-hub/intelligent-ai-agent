@@ -18,51 +18,125 @@ class IncidentDetector:
             print(f"Error: {file_path} not found.")
             return None
 
-    def analyze(self, telemetry_data):
+    def parse_logs(self, log_content):
         """
-        Implementation of the Decision Tree: 
-        Auto-fix -> Human-in-loop -> Escalate 
+        Parses raw log text to detect incidents based on string patterns.
+        Returns the incident details including all matching log lines as evidence.
         """
-        if not telemetry_data:
-            return None
+        log_lower = log_content.lower()
+        lines = log_content.splitlines()
+        
+        # Helper to find ALL lines matching a list of patterns
+        def find_evidence(patterns):
+            matches = [line.strip() for line in lines if any(p in line.lower() for p in patterns)]
+            if matches:
+                return "\n".join(matches)
+            return "Log pattern detected."
 
-        latest = telemetry_data[-1]
-        # Compare with previous state to detect trends (e.g., for Memory Leaks)
-        previous = telemetry_data[-2] if len(telemetry_data) > 1 else latest
-
-        # --- INCIDENT 1: Disk Full (Auto-remediate) ---
-        if latest['disk_usage'] > self.DISK_THRESHOLD:
+        # --- PATTERN 1: Disk Full ---
+        disk_patterns = ["no space left on device", "disk space critically low", "100% full"]
+        if any(p in log_lower for p in disk_patterns):
             return {
                 "incident": "Disk Full",
                 "action": "Auto-remediate",
-                "reason": f"Disk usage at {latest['disk_usage']}% exceeds safety threshold of {self.DISK_THRESHOLD}%.",
+                "reason": "Log analysis detected critical disk space warnings.",
+                "evidence": find_evidence(disk_patterns),
+                "suggested_fix": "Clear temporary log files and expand volume."
+            }
+
+        # --- PATTERN 2: API Timeout ---
+        timeout_patterns = ["timeout", "timed out", "slow api response", "high latency"]
+        if any(p in log_lower for p in timeout_patterns):
+            return {
+                "incident": "API Timeout",
+                "action": "Escalate",
+                "reason": "Log analysis detected extensive timeout errors.",
+                "evidence": find_evidence(timeout_patterns),
+                "suggested_fix": "Check downstream microservices and network health."
+            }
+
+        # --- PATTERN 3: Memory Leak ---
+        memory_patterns = ["malloc", "allocate resources", "outofmemory", "heap space", "segmentation fault", "corrupted top size"]
+        if any(p in log_lower for p in memory_patterns):
+            return {
+                "incident": "Memory Leak",
+                "action": "Human-in-loop approval",
+                "reason": "Log analysis found memory allocation failures.",
+                "evidence": find_evidence(memory_patterns),
+                "suggested_fix": "Restart service and check for unclosed database connections."
+            }
+            
+        return {
+            "incident": "None", 
+            "action": "Monitor", 
+            "reason": "No critical error patterns found in logs.",
+            "evidence": "N/A"
+        }
+
+    def analyze(self, telemetry_data):
+        """
+        Implementation of the Decision Tree with Time-Series Trends:
+        Auto-fix -> Human-in-loop -> Escalate
+        
+        Now supports both structured JSON (list) and raw logs (str).
+        """
+        
+        # Branch 1: Log Analysis (String)
+        if isinstance(telemetry_data, str):
+            return self.parse_logs(telemetry_data)
+
+        # Branch 2: Metrics Analysis (JSON List)
+        if not telemetry_data or not isinstance(telemetry_data, list):
+            return None
+
+        # Sort by timestamp just in case
+        data = sorted(telemetry_data, key=lambda x: x.get('timestamp', ''))
+        latest = data[-1]
+        
+        # Calculate moving averages (last 3 points)
+        window = data[-3:] if len(data) >= 3 else data
+        avg_memory = sum(d.get('memory_usage', 0) for d in window) / len(window)
+        avg_disk = sum(d.get('disk_usage', 0) for d in window) / len(window)
+        avg_latency = sum(d.get('latency', 0) for d in window) / len(window)
+        avg_error = sum(d.get('error_rate', 0) for d in window) / len(window)
+
+        # --- INCIDENT 1: Disk Full (Auto-remediate) ---
+        # Logic: Consistent high disk usage
+        if avg_disk > self.DISK_THRESHOLD:
+            return {
+                "incident": "Disk Full",
+                "action": "Auto-remediate",
+                "reason": f"Sustained disk usage at {avg_disk:.1f}% exceeds threshold of {self.DISK_THRESHOLD}%.",
                 "suggested_fix": "Clear temporary log files and expand volume."
             }
 
         # --- INCIDENT 2: Memory Leak (Human-in-loop) ---
-        # Logic: High memory AND it is steadily increasing 
-        if latest['memory_usage'] > self.MEMORY_THRESHOLD and latest['memory_usage'] > previous['memory_usage']:
+        # Logic: Trend analysis - Is memory strictly increasing?
+        mem_values = [d.get('memory_usage', 0) for d in window]
+        is_increasing = all(x < y for x, y in zip(mem_values, mem_values[1:]))
+        
+        if avg_memory > self.MEMORY_THRESHOLD and is_increasing:
             return {
                 "incident": "Memory Leak",
                 "action": "Human-in-loop approval",
-                "reason": f"Memory rose from {previous['memory_usage']}% to {latest['memory_usage']}% without traffic spike.",
+                "reason": f"Memory usage shows consistent upward trend: {mem_values}%.",
                 "suggested_fix": "Restart service and check for unclosed database connections."
             }
 
         # --- INCIDENT 3: API Timeout (Escalate) ---
-        # Logic: High latency or high error rates 
-        if latest.get('latency', 0) > self.LATENCY_THRESHOLD or latest.get('error_rate', 0) > self.ERROR_RATE_THRESHOLD:
+        # Logic: High latency or error rate spikes
+        if avg_latency > self.LATENCY_THRESHOLD or avg_error > self.ERROR_RATE_THRESHOLD:
             return {
                 "incident": "API Timeout",
                 "action": "Escalate",
-                "reason": f"Latency ({latest.get('latency')}ms) or Error Rate ({latest.get('error_rate')}) is too high.",
+                "reason": f"High latency ({avg_latency:.1f}ms) or Error Rate ({avg_error:.2f}) detected.",
                 "suggested_fix": "Check downstream microservices and network health."
             }
 
         # --- SUCCESS METRIC: Handle False Positives  ---
-        # If there's a tiny spike that immediately dropped, we ignore it.
-        if latest['cpu_usage'] > 90 and previous['cpu_usage'] < 30:
-            return {
+        # Logic: Transient spike check (latest high, average low)
+        if latest.get('cpu_usage', 0) > 90 and (sum(d.get('cpu_usage', 0) for d in data) / len(data)) < 50:
+             return {
                 "incident": "False Positive",
                 "action": "Ignore",
                 "reason": "Transient CPU spike detected and recovered. No impact on service health."

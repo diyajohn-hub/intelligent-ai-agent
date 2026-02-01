@@ -1,0 +1,31 @@
+[
+[2026-02-01 05:24:28.351] [INFO] Application started successfully
+[2026-02-01 05:24:28.352] [INFO] Initializing worker pool with 16 threads
+[2026-02-01 05:24:28.352] [INFO] Database connection pool initialized: max=50
+[2026-02-01 05:24:30.953] [WARNING] Thread pool executor timed out after 3500 seconds
+[2026-02-01 05:24:35.757] [WARNING] Database connection timeout: waited 12000ms
+[2026-02-01 05:24:36.557] [ERROR] malloc(): corrupted top size
+[2026-02-01 05:24:37.158] [ERROR] SystemError: unable to create new native thread
+[2026-02-01 05:24:37.759] [ERROR] Full GC completed in 5000ms (paused application)
+[2026-02-01 05:24:40.161] [ERROR] Connection pool exhausted: max active connections reached
+[2026-02-01 05:24:40.761] [ERROR] Tomcat connector thread pool exhausted
+[2026-02-01 05:24:41.362] [ERROR] OSError: [Errno 12] Cannot allocate resources
+[2026-02-01 05:24:41.963] [ERROR] malloc(): corrupted top size
+[2026-02-01 05:24:42.564] [CRITICAL] Connection pool exhausted: max active connections reached
+[2026-02-01 05:24:42.965] [ERROR] WARN: Response time degradation detected: 3500ms (expected <500ms)
+[2026-02-01 05:24:43.365] [CRITICAL] Excessive paging activity detected
+[2026-02-01 05:24:43.766] [CRITICAL] Buffer pool utilization at 95% - performance impacted
+[2026-02-01 05:24:44.169] [CRITICAL] RuntimeError: resource exhausted
+[2026-02-01 05:24:44.569] [ERROR] WARN: Response time degradation detected: 2000ms (expected <500ms)
+[2026-02-01 05:24:44.970] [CRITICAL] Virtual memory exhausted
+[2026-02-01 05:24:44.970] [CRITICAL] CRITICAL: Application encountered fatal error
+[2026-02-01 05:24:44.970] [CRITICAL] Cache eviction rate exceeding threshold: 5000 evictions/sec  
+
+Stack trace:
+--------------------------------------------------------------------------------
+Segmentation fault (core dumped)
+  0x00007f8a4c2b1a3d in malloc () from /lib/x86_64-linux-gnu/libc.so.6
+  0x0000000000401234 in allocate_buffer ()
+  0x0000000000401567 in process_data ()
+--------------------------------------------------------------------------------
+[2026-02-01 05:24:44.972] [CRITICAL] Process terminated with exit code: 137

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligent AI Agent | Incident Response</title>
+    <style>
+        :root {
+            --bg-color: #0f172a; --card-bg: #1e293b; --text-primary: #f8fafc;
+            --text-secondary: #94a3b8; --accent-color: #3b82f6; --success-color: #22c55e;
+            --warning-color: #eab308; --danger-color: #ef4444; --border-color: #334155;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-primary); margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        header { width: 100%; padding: 2rem 0; background: linear-gradient(180deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0) 100%); text-align: center; }
+        h1 { font-size: 2.5rem; background: linear-gradient(90deg, #60a5fa, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .container { width: 90%; max-width: 900px; padding: 1rem; }
+        .upload-section { background-color: var(--card-bg); border: 2px dashed var(--border-color); border-radius: 1rem; padding: 3rem; text-align: center; cursor: pointer; margin-bottom: 2rem; transition: 0.3s; }
+        .upload-section:hover { border-color: var(--accent-color); background-color: rgba(59, 130, 246, 0.1); }
+        .btn { background-color: var(--accent-color); color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; border: none; font-weight: 600; cursor: pointer; }
+        #report-container { display: none; animation: slideUp 0.6s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .card { background-color: var(--card-bg); border-radius: 1rem; padding: 1.5rem; margin-bottom: 1.5rem; border: 1px solid var(--border-color); }
+        .incident-badge { padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 700; background: rgba(239, 68, 68, 0.1); color: var(--danger-color); }
+        .label { color: var(--text-secondary); font-size: 0.875rem; margin-right: 0.5rem; }
+        .value { color: var(--text-primary); font-weight: 500; }
+        .console-output { background-color: #000; color: #22c55e; font-family: monospace; padding: 1rem; border-radius: 0.5rem; font-size: 0.875rem; white-space: pre-wrap; border-left: 4px solid var(--success-color); }
+        .loader { border: 4px solid var(--border-color); border-top: 4px solid var(--accent-color); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 2rem auto; display: none; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <header><h1>Intelligent AI Agent</h1><h2>Autonomous Incident Response System</h2></header>
+    <div class="container">
+        <div class="upload-section" id="drop-zone" onclick="document.getElementById('file-input').click()">
+            <div style="font-size: 3rem;">📂</div>
+            <h3>Upload Telemetry JSON</h3>
+            <input type="file" id="file-input" style="display:none" accept=".json">
+            <button class="btn">Select File</button>
+        </div>
+
+        <div class="loader" id="loader"></div>
+
+        <div id="report-container">
+            <div class="card" id="header-card">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div><div class="label">INCIDENT TYPE</div><div class="value" style="font-size: 1.5rem;" id="incident-type"></div></div>
+                    <div class="incident-badge" id="severity-badge"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="label">🤖 AI ANALYSIS</div>
+                <p>Confidence: <span id="confidence-score" class="value" style="color:var(--accent-color)"></span></p>
+                <p id="root-cause" class="value"></p>
+            </div>
+
+            <div class="card">
+                <div class="label">⚡ DECISION ENGINE</div>
+                <p>Action: <span id="action-taken" class="value" style="color:var(--accent-color)"></span></p>
+                <p id="decision-reason" class="value"></p>
+            </div>
+
+            <div class="card" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; text-align: center;">
+                <div><div class="label">MTTD</div><div id="mttd-value" class="value"></div></div>
+                <div><div class="label">RESOLUTION</div><div id="resolution-time" class="value"></div></div>
+                <div><div class="label">FALSE ALERT</div><div id="false-alert" class="value"></div></div>
+            </div>
+
+            <div class="card"><div class="label">🚀 EXECUTION LOG</div><div class="console-output" id="execution-log"></div></div>
+        </div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('file-input');
+        const loader = document.getElementById('loader');
+        const reportContainer = document.getElementById('report-container');
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length) {
+                loader.style.display = 'block';
+                reportContainer.style.display = 'none';
+                const formData = new FormData();
+                formData.append('file', e.target.files[0]);
+
+                fetch('/analyze', { method: 'POST', body: formData })
+                    .then(res => res.json())
+                    .then(data => {
+                        loader.style.display = 'none';
+                        reportContainer.style.display = 'block';
+                        document.getElementById('incident-type').textContent = data.incident_type;
+                        document.getElementById('severity-badge').textContent = data.decision.severity + " SEVERITY";
+                        document.getElementById('confidence-score').textContent = data.confidence.toFixed(2);
+                        document.getElementById('root-cause').textContent = data.ai_analysis;
+                        document.getElementById('action-taken').textContent = data.action_taken;
+                        document.getElementById('decision-reason').textContent = data.decision.reason;
+                        document.getElementById('mttd-value').textContent = data.metrics.mttd;
+                        document.getElementById('resolution-time').textContent = data.metrics.resolution_time;
+                        document.getElementById('false-alert').textContent = data.metrics.false_alert ? "Yes" : "No";
+                        document.getElementById('execution-log').textContent = data.action_result;
+                    })
+                    .catch(err => { loader.style.display = 'none'; alert("Error: " + err); });
+            }
+        });
+    </script>
+</body>
+</html>

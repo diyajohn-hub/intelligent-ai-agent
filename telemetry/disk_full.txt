@@ -1,0 +1,33 @@
+
+[2026-02-01 05:33:13.403] [INFO] System monitoring initialized for /dev/sda1
+[2026-02-01 05:33:13.403] [INFO] Mount point: /
+[2026-02-01 05:33:13.403] [INFO] Current disk usage: 75.0%
+[2026-02-01 05:33:15.585] [WARNING] Low disk space: only 21.4% remaining on /
+[2026-02-01 05:33:19.509] [WARNING] Temporary filesystem nearly full: 57MB remaining
+[2026-02-01 05:33:20.601] [WARNING] Disk space critically low: 128MB free
+[2026-02-01 05:33:24.350] [WARNING] Disk space critically low: 69MB free
+[2026-02-01 05:33:25.005] [WARNING] Disk space critically low: 85MB free
+[2026-02-01 05:33:25.005] [ERROR] Log rotation failed: insufficient space for new log file
+[2026-02-01 05:33:25.817] [WARNING] Disk space critically low: 150MB free
+[2026-02-01 05:33:26.757] [WARNING] Disk space alert: /dev/sda1 usage at 91.2%
+[2026-02-01 05:33:26.757] [ERROR] MongoDB: WriteError: No space left on device
+[2026-02-01 05:33:27.473] [WARNING] Disk space critically low: 52MB free
+[2026-02-01 05:33:27.975] [WARNING] Disk space critically low: 64MB free
+[2026-02-01 05:33:27.975] [INFO] Attempting automatic cleanup of temporary files
+[2026-02-01 05:33:28.683] [WARNING] Temporary filesystem nearly full: 88MB remaining
+[2026-02-01 05:33:28.683] [ERROR] Image upload failed: server storage full
+[2026-02-01 05:33:29.574] [ERROR] tar: backup_10.tar.gz: Wrote only 2033 of 10082 bytes
+[2026-02-01 05:33:29.574] [ERROR] Cannot reserve 681MB for database: insufficient space
+[2026-02-01 05:33:30.335] [ERROR] sqlite3.OperationalError: database or disk is full
+[2026-02-01 05:33:30.335] [ERROR] Buffer allocation failed: filesystem at capacity
+[2026-02-01 05:33:30.335] [WARNING] Transaction commit delayed: log file full
+[2026-02-01 05:33:30.908] [ERROR] Burst of write operations failed:
+[2026-02-01 05:33:31.009] [ERROR]   [1] dd: error writing 'file_710.dat': No space left on device
+[2026-02-01 05:33:31.110] [ERROR]   [2] sqlite3.OperationalError: database or disk is full
+[2026-02-01 05:33:31.210] [ERROR]   [3] dd: error writing 'file_464.dat': No space left on device
+[2026-02-01 05:33:31.210] [CRITICAL] touch: cannot touch '/tmp/test_617.txt': No space left on device
+[2026-02-01 05:33:31.211] [CRITICAL] sqlite3.OperationalError: database or disk is full
+[2026-02-01 05:33:31.211] [CRITICAL] Unable to save checkpoint: disk space exhausted
+[2026-02-01 05:33:31.711] [CRITICAL] CRITICAL: /dev/sda1 is 100% full
+[2026-02-01 05:33:31.711] [CRITICAL] Multiple services affected by disk space shortage
+[2026-02-01 05:33:31.711] [CRITICAL] Immediate intervention required: clean up disk space
